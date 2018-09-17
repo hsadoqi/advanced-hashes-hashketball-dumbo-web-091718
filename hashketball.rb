@@ -140,17 +140,9 @@ end
 
 def num_points_scored(name)
   game_hash.each do |location, team_data|
-    team_data.each do |attribute, data|
-      if attribute == :players
-        data.each do |x, y|
-          if x == name
-            y.each do |stats, count|
-              if stats == :points
-                return count
-              end
-            end
-          end
-        end
+    team_data[:players].each do |player, data|
+      if player == name
+        return data[:points]
       end
     end
   end
@@ -214,15 +206,13 @@ end
 jersey_nums
 end
 
-def player_stats(name)
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |player, stats|
-          if player == name
-            return stats
-          end
-        end
-      end
-    end
+# def player_stats(name)
+#   game_hash.each do |location, team_data|
+#     team_data[:players].each do |player, stats|
+#           end
+#         end
+#       end
+#     end
 
 def big_shoe_rebounds
   shoe_size = 0 
@@ -239,3 +229,14 @@ def big_shoe_rebounds
   rebounds
 end
 
+def player_by_number(num)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player, data|
+      if data[:number] == num
+      return player
+      end
+    end
+  end
+end
+
+puts player_by_number(8)
